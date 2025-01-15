@@ -1,0 +1,20 @@
+{
+  "cars": [
+    {
+      "vid": "NEON_GT_2024",
+      "make": "Neon Motors",
+      "model": "GT",
+      "year": 2024,
+      "baseStats": {
+        "acceleration": 85,
+        "topSpeed": 220,
+        "handling": 75,
+        "braking": 80,
+        "nitro": 100
+      },
+      "price": 50000,
+      "rarity": "rare",
+      "description": "The flagship model of Neon Motors, featuring cutting-edge neon technology"
+    }
+  ]
+}
