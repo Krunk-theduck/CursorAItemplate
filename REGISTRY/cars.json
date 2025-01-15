@@ -1,10 +1,79 @@
 {
   "cars": [
     {
+      "vid": "NEON_COMPACT_2024",
+      "make": "Neon Motors",
+      "model": "Compact",
+      "year": 2024,
+      "class": "entry",
+      "baseStats": {
+        "acceleration": 55,
+        "topSpeed": 165,
+        "handling": 65,
+        "braking": 60,
+        "nitro": 40
+      },
+      "price": 15000,
+      "rarity": "common",
+      "description": "The perfect starter car for new racers. Reliable and forgiving."
+    },
+    {
+      "vid": "CYBER_DART_2024",
+      "make": "CyberTech",
+      "model": "Dart",
+      "year": 2024,
+      "class": "entry",
+      "baseStats": {
+        "acceleration": 60,
+        "topSpeed": 160,
+        "handling": 70,
+        "braking": 65,
+        "nitro": 35
+      },
+      "price": 17500,
+      "rarity": "common",
+      "description": "CyberTech's entry-level racer, known for its responsive handling."
+    },
+    {
+      "vid": "NEON_SPRINTER_2024",
+      "make": "Neon Motors",
+      "model": "Sprinter",
+      "year": 2024,
+      "class": "standard",
+      "baseStats": {
+        "acceleration": 65,
+        "topSpeed": 180,
+        "handling": 70,
+        "braking": 75,
+        "nitro": 50
+      },
+      "price": 25000,
+      "rarity": "common",
+      "description": "A balanced mid-range car that's popular among amateur racers."
+    },
+    {
+      "vid": "CYBER_PULSE_2024",
+      "make": "CyberTech",
+      "model": "Pulse",
+      "year": 2024,
+      "class": "standard",
+      "baseStats": {
+        "acceleration": 70,
+        "topSpeed": 175,
+        "handling": 80,
+        "braking": 70,
+        "nitro": 55
+      },
+      "price": 27500,
+      "rarity": "common",
+      "description": "Emphasizes handling over raw speed, perfect for technical racers."
+    },
+    {
       "vid": "NEON_GT_2024",
       "make": "Neon Motors",
       "model": "GT",
       "year": 2024,
+      "class": "performance",
       "baseStats": {
         "acceleration": 85,
         "topSpeed": 220,
@@ -14,7 +83,98 @@
       },
       "price": 50000,
       "rarity": "rare",
-      "description": "The flagship model of Neon Motors, featuring cutting-edge neon technology"
+      "description": "The flagship model of Neon Motors, featuring cutting-edge neon technology."
+    },
+    {
+      "vid": "CYBER_VECTOR_2024",
+      "make": "CyberTech",
+      "model": "Vector",
+      "year": 2024,
+      "class": "performance",
+      "baseStats": {
+        "acceleration": 80,
+        "topSpeed": 230,
+        "handling": 85,
+        "braking": 85,
+        "nitro": 90
+      },
+      "price": 55000,
+      "rarity": "rare",
+      "description": "A high-performance machine that excels in all racing conditions."
+    },
+    {
+      "vid": "NEON_PHANTOM_2024",
+      "make": "Neon Motors",
+      "model": "Phantom",
+      "year": 2024,
+      "class": "advanced",
+      "baseStats": {
+        "acceleration": 90,
+        "topSpeed": 240,
+        "handling": 80,
+        "braking": 85,
+        "nitro": 110
+      },
+      "price": 75000,
+      "rarity": "epic",
+      "description": "A premium racing machine that pushes the boundaries of speed."
+    },
+    {
+      "vid": "CYBER_STORM_2024",
+      "make": "CyberTech",
+      "model": "Storm",
+      "year": 2024,
+      "class": "advanced",
+      "baseStats": {
+        "acceleration": 85,
+        "topSpeed": 235,
+        "handling": 90,
+        "braking": 90,
+        "nitro": 100
+      },
+      "price": 80000,
+      "rarity": "epic",
+      "description": "The perfect blend of speed and control, favored by professional racers."
     }
-  ]
+  ],
+  "classes": {
+    "entry": {
+      "name": "Entry",
+      "description": "Perfect for beginners",
+      "minPrice": 15000,
+      "maxPrice": 20000
+    },
+    "standard": {
+      "name": "Standard",
+      "description": "Balanced performance",
+      "minPrice": 20000,
+      "maxPrice": 30000
+    },
+    "performance": {
+      "name": "Performance",
+      "description": "High-performance vehicles",
+      "minPrice": 45000,
+      "maxPrice": 60000
+    },
+    "advanced": {
+      "name": "Advanced",
+      "description": "Premium racing machines",
+      "minPrice": 70000,
+      "maxPrice": 85000
+    }
+  },
+  "rarities": {
+    "common": {
+      "dropRate": 70,
+      "color": "#ffffff"
+    },
+    "rare": {
+      "dropRate": 20,
+      "color": "#3498db"
+    },
+    "epic": {
+      "dropRate": 10,
+      "color": "#9b59b6"
+    }
+  }
 }
