@@ -22,17 +22,28 @@
             "NEVER break type safety",
             "ALWAYS maintain proper error handling",
             "ALWAYS document new code",
-            "ALWAYS document learnings in `.notes/meeting_notes.md`"
+            "ALWAYS document learnings in `.notes/meeting_notes.md`",
+            "ALWAYS test physics calculations",
+            "ENSURE consistent frame rate",
+            "VALIDATE network data"
         ],
         "priorities": [
             {
                 "source": ".notes/",
                 "weight": 1.0
+            },
+            {
+                "source": "src/physics/",
+                "weight": 0.9
+            },
+            {
+                "source": "src/networking/",
+                "weight": 0.8
             }
         ],
         "modes": {
             "base": {
-                "description": "For routine website tasks and quick updates",
+                "description": "For routine game updates and quick fixes",
                 "features": {
                     "responseStyle": "concise",
                     "codeFormat": "minimal",
@@ -40,57 +51,58 @@
                     "suggestions": false
                 },
                 "bestFor": [
-                    "Content updates",
-                    "Simple styling changes",
-                    "Basic component modifications",
-                    "Quick fixes"
+                    "UI tweaks",
+                    "Simple car stat adjustments",
+                    "Basic bug fixes",
+                    "Content updates"
                 ]
             },
-            "enhanced": {
-                "description": "For complex website development problems",
+            "physics": {
+                "description": "For vehicle dynamics and race mechanics",
                 "features": {
-                    "responseStyle": "detailed",
+                    "responseStyle": "technical",
                     "codeFormat": "comprehensive",
                     "examples": true,
-                    "suggestions": true
-                },
-                "bestFor": [
-                    "Architecture decisions",
-                    "Performance optimization",
-                    "Complex feature implementation",
-                    "Responsive design solutions"
-                ]
-            },
-            "creative": {
-                "description": "For design and brainstorming sessions",
-                "features": {
-                    "responseStyle": "exploratory",
-                    "codeFormat": "prototype",
-                    "examples": true,
                     "suggestions": true,
-                    "moodboards": true
+                    "performanceMetrics": true
                 },
                 "bestFor": [
-                    "Color scheme exploration",
-                    "Layout ideation",
-                    "UI/UX improvements",
-                    "Visual component design"
+                    "Car handling mechanics",
+                    "Collision detection",
+                    "Track physics",
+                    "Performance optimization"
                 ]
             },
-            "debug": {
-                "description": "For troubleshooting and problem solving",
+            "network": {
+                "description": "For multiplayer and online features",
                 "features": {
-                    "responseStyle": "analytical",
+                    "responseStyle": "detailed",
                     "codeFormat": "diagnostic",
                     "examples": true,
                     "suggestions": true,
-                    "errorAnalysis": true
+                    "networkAnalysis": true
                 },
                 "bestFor": [
-                    "Bug fixing",
-                    "Performance issues",
-                    "Cross-browser compatibility",
-                    "Build problems"
+                    "Multiplayer synchronization",
+                    "Trading system",
+                    "Leaderboard implementation",
+                    "Network optimization"
+                ]
+            },
+            "visual": {
+                "description": "For UI/UX and visual effects",
+                "features": {
+                    "responseStyle": "creative",
+                    "codeFormat": "prototype",
+                    "examples": true,
+                    "suggestions": true,
+                    "themeConsistency": true
+                },
+                "bestFor": [
+                    "Neon effect implementation",
+                    "UI components",
+                    "Animation systems",
+                    "Visual feedback"
                 ]
             }
         },
@@ -100,8 +112,13 @@
             "persistencePerSession": true
         },
         "project_directives": {
-            "name": "my_project",
+            "name": "neon_racers",
             "ai_first": true,
+            "theme": {
+                "primary": "black",
+                "accent": "neon_red",
+                "style": "cyber_racing"
+            },
             "documentation": {
                 "learnings_path": ".notes/meeting_notes.md",
                 "auto_document": true

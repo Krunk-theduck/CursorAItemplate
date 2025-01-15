@@ -1,19 +1,46 @@
 # Task List
 
-## High Priority
-- [ ] Set up project structure
-- [ ] Implement core functionality
-- [ ] Create basic UI components
+## Authentication & Data (Firebase)
+- [ ] Firebase Setup
+  - [ ] Initialize Firebase project
+  - [ ] Set up authentication
+    - [ ] Email/Password
+    - [ ] Google Sign-in
+  - [ ] Basic security rules
+- [ ] Data Structure
+  - [ ] User profiles in Firestore
+  - [ ] Car inventory collection
+  - [ ] Leaderboard structure
 
-## Medium Priority
-- [ ] Add secondary features
-- [ ] Implement user feedback
-- [ ] Optimize performance
+## Core Game Features
+- [ ] Game Foundation
+  - [ ] Canvas setup with requestAnimationFrame
+  - [ ] Basic 2D rendering system
+  - [ ] Input handling
+- [ ] Car System
+  - [ ] Car data in Firestore
+  - [ ] 2D car mechanics
+  - [ ] Basic collision system
 
-## Low Priority
-- [ ] Add animations
-- [ ] Implement mobile support
-- [ ] Add additional features
+## Online Features
+- [ ] Real-time Features
+  - [ ] Live leaderboard updates
+  - [ ] Basic matchmaking using Firebase
+  - [ ] Simple trading system
+- [ ] User Progression
+  - [ ] Experience system
+  - [ ] Achievement tracking
+  - [ ] Currency system
+
+## Visual & UI
+- [ ] Interface
+  - [ ] CSS neon effects
+  - [ ] Responsive game UI
+  - [ ] Loading states
+- [ ] Effects
+  - [ ] Canvas particles
+  - [ ] CSS animations
+  - [ ] Sound effects
 
 ## Completed
-- [x] Initial project setup
+- [x] Firebase account setup

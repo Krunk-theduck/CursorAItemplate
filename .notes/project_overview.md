@@ -1,35 +1,29 @@
-# Project Overview
+# Neon Racers - Project Overview
 
-## Development Guidelines
+## Visual Identity
+- **Core Theme**: Cyberpunk Racing
+- **Primary Colors**:
+  - Deep Black (#0a0a0a) - Base background
+  - Neon Red (#ff0033) - Primary accent
+  - Electric Blue (#00f3ff) - Secondary accent
+- **Design Elements**:
+  - Neon glow effects
+  - Sharp, angular shapes
+  - Racing-inspired line patterns
+  - Floating/hovering elements
+  - Parallax scrolling effects
+  - Retro-futuristic grid backgrounds
 
-### Communication Protocol
-1. **Task Management**
-   - Break tasks into small, testable units
-   - Document decisions and progress
-   - Maintain clear task priorities
-   - Keep historical context
+## UI/UX Principles
+- Minimalist but impactful
+- Focus on neon light effects
+- Smooth animations
+- Responsive design
+- Clear visual hierarchy
+- Racing-inspired typography
 
-2. **Documentation**
-   - Add rather than replace
-   - Use clear section headers
-   - Track decisions and learnings
-   - Maintain chronological order
-
-3. **Development Flow**
-   - Core functionality first
-   - Mobile/responsive later
-   - Iterative development
-   - Regular check-ins
-
-### Technical Standards
-1. **Code Organization**
-   - Clear separation of concerns
-   - Thorough documentation
-   - Strong type safety
-   - Proper error handling
-
-2. **Development Modes**
-   - Base: Routine tasks
-   - Enhanced: Complex features
-   - Creative: Design/UI
-   - Debug: Problem solving
+## Key Features
+- Seamless authentication flow
+- Immersive landing page
+- Responsive across devices
+- Performance-optimized animations
