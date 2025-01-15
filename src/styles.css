@@ -34,6 +34,7 @@ body.cyber-theme {
     align-items: center;
     justify-content: center;
     overflow: hidden;
+    overflow-y: scroll;
 }
 
 .container {
@@ -252,9 +253,15 @@ body.cyber-theme {
 }
 
 .dashboard-section {
+    opacity: 1; /* Make sure opacity is 1 */
+    visibility: visible;
+    transition: opacity 0.3s ease;
+}
+
+.dashboard-section.hidden {
     opacity: 0;
-    transform: translateY(20px);
-    transition: all 0.3s ease;
+    visibility: hidden;
+    pointer-events: none;
 }
 
 .dashboard-section.active {

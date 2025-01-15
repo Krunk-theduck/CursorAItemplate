@@ -1,65 +1,70 @@
 class DashboardManager {
     constructor() {
-        this.initializeNavigation();
-        this.loadUserData();
+        this.sections = {
+            garage: document.getElementById('garage-section'),
+            race: document.getElementById('race-section'),
+            shop: document.getElementById('shop-section'),
+            profile: document.getElementById('profile-section')
+        };
+        
+        this.garageUI = window.garageUI;
+        this.garageInitialized = false;
     }
 
-    initializeNavigation() {
-        const navButtons = document.querySelectorAll('.nav-btn');
-        navButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                this.switchSection(button.dataset.section);
+    async initialize() {
+        // Wait for auth to be ready
+        await new Promise(resolve => {
+            const unsubscribe = firebase.auth().onAuthStateChanged(user => {
+                unsubscribe();
+                resolve(user);
             });
         });
 
-        // Logout handler
-        document.getElementById('logout-btn').addEventListener('click', () => {
-            firebase.auth().signOut();
+        // Initialize garage by default since it's the landing section
+        try {
+            await this.garageUI.initialize();
+            this.garageInitialized = true;
+            
+            // Load user's cars immediately
+            await this.garageUI.refreshGarage();
+        } catch (error) {
+            console.error('Failed to initialize garage:', error);
+        }
+
+        // Add navigation listeners
+        document.querySelectorAll('.nav-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                this.showSection(button.dataset.section);
+            });
         });
     }
 
-    switchSection(sectionId) {
-        // Update navigation buttons
-        document.querySelectorAll('.nav-btn').forEach(btn => {
-            btn.classList.remove('active');
-            if (btn.dataset.section === sectionId) {
-                btn.classList.add('active');
+    async showSection(sectionId) {
+        // Update active button
+        document.querySelectorAll('.nav-btn').forEach(button => {
+            button.classList.toggle('active', button.dataset.section === sectionId);
+        });
+
+        // Hide all sections
+        Object.values(this.sections).forEach(section => {
+            if (section) {
+                section.classList.add('hidden');
             }
         });
 
-        // Update sections
-        document.querySelectorAll('.dashboard-section').forEach(section => {
-            section.classList.remove('active');
-            section.classList.add('hidden');
-            if (section.id === `${sectionId}-section`) {
-                section.classList.remove('hidden');
-                section.classList.add('active');
-            }
-        });
-    }
-
-    async loadUserData() {
-        const user = firebase.auth().currentUser;
-        if (user) {
-            try {
-                const userDoc = await firebase.firestore()
-                    .collection('users')
-                    .doc(user.uid)
-                    .get();
-                
-                const userData = userDoc.data();
-                if (userData) {
-                    document.getElementById('user-credits').textContent = 
-                        `₢ ${userData.credits?.toLocaleString() || 0}`;
-                }
-            } catch (error) {
-                console.error('Error loading user data:', error);
-            }
+        // Show selected section
+        const section = this.sections[sectionId];
+        if (section) {
+            section.classList.remove('hidden');
+            console.log(`Showing section: ${sectionId}`);
+        } else {
+            console.error(`Section not found: ${sectionId}`);
         }
     }
 }
 
-// Initialize dashboard when the page loads
+// Initialize dashboard when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
     window.dashboardManager = new DashboardManager();
+    window.dashboardManager.initialize();
 }); 
