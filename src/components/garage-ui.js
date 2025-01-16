@@ -96,7 +96,19 @@ class GarageUI {
 
     renderCars(cars) {
         const grid = this.container.querySelector('.cars-grid');
-        grid.innerHTML = cars.map(car => this.createCarCard(car)).join('');
+        if (!grid) {
+            console.error('Cars grid not found');
+            return;
+        }
+
+        // Clear existing content
+        grid.innerHTML = '';
+        
+        // Create and append each car card
+        cars.forEach(car => {
+            const card = this.createCarCard(car);
+            grid.appendChild(card);
+        });
 
         // Add click listeners to cards
         grid.querySelectorAll('.car-card').forEach(card => {
@@ -105,45 +117,74 @@ class GarageUI {
     }
 
     createCarCard(car) {
-        const totalPerformance = Object.values(car.performance)
-            .reduce((sum, stat) => sum + stat, 0);
-
-        return `
-            <div class="car-card ${car.rarity}" data-uid="${car.uid}">
-                <div class="car-card-header">
-                    <span class="car-name">${car.year} ${car.make} ${car.model}</span>
-                    <span class="car-class">${car.class}</span>
-                </div>
-                <div class="car-image">
-                    <!-- Car SVG will go here -->
-                </div>
-                <div class="car-stats">
-                    <div class="stat">
-                        <span class="stat-label">Top Speed</span>
-                        <div class="stat-bar">
-                            <div class="stat-fill" style="width: ${car.performance.topSpeed / 3}%"></div>
-                        </div>
-                    </div>
-                    <div class="stat">
-                        <span class="stat-label">Acceleration</span>
-                        <div class="stat-bar">
-                            <div class="stat-fill" style="width: ${car.performance.acceleration}%"></div>
-                        </div>
+        const card = document.createElement('div');
+        card.className = `car-card ${car.rarity}`;
+        card.dataset.uid = car.uid; // Add the car's UID as a data attribute
+        
+        card.innerHTML = `
+            <div class="car-card-header">
+                <span class="car-name">${car.year} ${car.make} ${car.model}</span>
+                <span class="car-class">${car.class}</span>
+            </div>
+            <div class="car-image">
+                ${this.getCarSVG(car.vid)}
+            </div>
+            <div class="car-stats">
+                <div class="stat">
+                    <span class="stat-label">Top Speed</span>
+                    <div class="stat-bar">
+                        <div class="stat-fill" style="width: ${car.performance.topSpeed / 3}%"></div>
                     </div>
                 </div>
-                <div class="car-footer">
-                    <span class="car-condition">Condition: ${car.stats.condition}%</span>
-                    <span class="car-mileage">${car.stats.mileage}km</span>
+                <div class="stat">
+                    <span class="stat-label">Acceleration</span>
+                    <div class="stat-bar">
+                        <div class="stat-fill" style="width: ${car.performance.acceleration}%"></div>
+                    </div>
                 </div>
             </div>
+            <div class="car-footer">
+                <span class="car-condition">Condition: ${car.stats.condition}%</span>
+                <span class="car-mileage">${car.stats.mileage}km</span>
+            </div>
         `;
+        
+        return card;
+    }
+
+    getCarSVG(vid) {
+        // Fetch and cache SVG content
+        if (!this.svgCache) {
+            this.svgCache = new Map();
+        }
+
+        if (!this.svgCache.has(vid)) {
+            console.log(`Attempting to load SVG for ${vid}`); // Debug log
+            fetch(`/src/assets/cars/${vid}.svg`)
+                .then(response => {
+                    console.log(`SVG response for ${vid}:`, response.status); // Debug log
+                    return response.text();
+                })
+                .then(svgContent => {
+                    console.log(`SVG loaded for ${vid}`); // Debug log
+                    this.svgCache.set(vid, svgContent);
+                    document.querySelectorAll(`[data-car-vid="${vid}"]`)
+                        .forEach(element => {
+                            element.innerHTML = svgContent;
+                        });
+                })
+                .catch(error => console.error('Failed to load car SVG:', error));
+        }
+
+        return `<div class="car-svg" data-car-vid="${vid}">
+                    ${this.svgCache.get(vid) || '<div class="car-placeholder"></div>'}
+                </div>`;
     }
 
     async showCarDetails(uid) {
         const car = this.garageManager.cars.get(uid);
         if (!car) return;
 
-        // Create modal with car details
         const modal = document.createElement('div');
         modal.className = 'car-details-modal';
         modal.innerHTML = `
@@ -151,7 +192,7 @@ class GarageUI {
                 <h2>${car.year} ${car.make} ${car.model}</h2>
                 <div class="car-details">
                     <div class="car-image large">
-                        <!-- Large car SVG will go here -->
+                        ${await this.getHDCarSVG(car.vid)}
                     </div>
                     <div class="car-info">
                         <div class="stats-grid">
@@ -194,6 +235,27 @@ class GarageUI {
         `;
 
         document.body.appendChild(modal);
+    }
+
+    async getHDCarSVG(vid) {
+        if (!this.hdSvgCache) {
+            this.hdSvgCache = new Map();
+        }
+
+        if (!this.hdSvgCache.has(vid)) {
+            try {
+                const response = await fetch(`/src/assets/cars/HD/${vid}.svg`);
+                const svgContent = await response.text();
+                this.hdSvgCache.set(vid, svgContent);
+            } catch (error) {
+                console.error('Failed to load HD car SVG:', error);
+                return '<div class="car-placeholder large"></div>';
+            }
+        }
+
+        return `<div class="car-svg hd" data-car-vid="${vid}">
+                    ${this.hdSvgCache.get(vid) || '<div class="car-placeholder large"></div>'}
+                </div>`;
     }
 }
 

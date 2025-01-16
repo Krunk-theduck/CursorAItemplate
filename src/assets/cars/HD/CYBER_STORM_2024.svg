@@ -1,0 +1,107 @@
+<svg width="600" height="300" viewBox="0 0 600 300" xmlns="http://www.w3.org/2000/svg">
+    <!-- Base car shape -->
+    <g class="car-body" fill="var(--car-color, #00ffff)">
+        <!-- Main body - aggressive cyber design -->
+        <path d="M80,200 
+                 L120,170
+                 L180,170
+                 L240,160
+                 L320,140
+                 L400,140
+                 L480,160
+                 L540,190
+                 L520,200
+                 L80,200" 
+              fill-opacity="0.9"/>
+        
+        <!-- Hood - angular cyber design -->
+        <path d="M120,170
+                 L180,170
+                 L240,160
+                 L220,165
+                 L160,165
+                 Z" 
+              fill-opacity="0.7"/>
+        
+        <!-- Roof - sharp angles -->
+        <path d="M240,160
+                 L320,130
+                 L400,130
+                 L480,160
+                 L400,150
+                 L320,140
+                 Z" 
+              fill="#111"/>
+        
+        <!-- Windows - geometric design -->
+        <path d="M260,158
+                 L320,135
+                 L380,135
+                 L440,158
+                 L380,150
+                 L320,145
+                 Z" 
+              fill="#1a1a1a"
+              class="window"/>
+              
+        <!-- Cyber details -->
+        <path d="M140,175 L180,175 L200,165 L140,165 Z" 
+              fill="#111" class="cyber-grill"/>
+        
+        <!-- Tech lights -->
+        <path d="M100,177 L120,177 L120,183 L100,183 Z" 
+              fill="#fff" class="tech-light"/>
+        <path d="M500,177 L520,177 L520,183 L500,183 Z" 
+              fill="#0ff" class="tech-light"/>
+    </g>
+
+    <!-- Enhanced cyber details -->
+    <g class="neon-accents" stroke="var(--car-color, #00ffff)" fill="none">
+        <!-- Multiple tech lines -->
+        <path d="M140,180 L500,180" stroke-width="2" class="glow"/>
+        <path d="M160,185 L480,185" stroke-width="1.5" class="glow"/>
+        <path d="M180,190 L460,190" stroke-width="1" class="glow"/>
+        
+        <!-- Angular front details -->
+        <path d="M100,190 L140,170" stroke-width="2" class="glow"/>
+        <path d="M110,193 L150,173" stroke-width="1.5" class="glow"/>
+        
+        <!-- Angular rear details -->
+        <path d="M480,170 L520,190" stroke-width="2" class="glow"/>
+        <path d="M470,173 L510,193" stroke-width="1.5" class="glow"/>
+        
+        <!-- Tech patterns -->
+        <path d="M200,160 L240,150 L280,145" stroke-width="1" class="glow"/>
+        <path d="M320,140 L360,145 L400,150" stroke-width="1" class="glow"/>
+    </g>
+
+    <!-- High-tech wheels -->
+    <g class="wheels">
+        <!-- Front wheel -->
+        <circle cx="180" cy="200" r="35" fill="#111"/>
+        <circle cx="180" cy="200" r="30" fill="#333"/>
+        <path d="M160,200 L200,200 M180,180 L180,220" 
+              stroke="#0ff" stroke-width="2"/>
+        <circle cx="180" cy="200" r="20" fill="#222"/>
+        <circle cx="180" cy="200" r="8" fill="#111"/>
+        
+        <!-- Rear wheel -->
+        <circle cx="440" cy="200" r="35" fill="#111"/>
+        <circle cx="440" cy="200" r="30" fill="#333"/>
+        <path d="M420,200 L460,200 M440,180 L440,220" 
+              stroke="#0ff" stroke-width="2"/>
+        <circle cx="440" cy="200" r="20" fill="#222"/>
+        <circle cx="440" cy="200" r="8" fill="#111"/>
+    </g>
+
+    <!-- Enhanced cyber glow -->
+    <defs>
+        <filter id="cyber-glow-hd">
+            <feGaussianBlur stdDeviation="4" result="coloredBlur"/>
+            <feMerge>
+                <feMergeNode in="coloredBlur"/>
+                <feMergeNode in="SourceGraphic"/>
+            </feMerge>
+        </filter>
+    </defs>
+</svg> 

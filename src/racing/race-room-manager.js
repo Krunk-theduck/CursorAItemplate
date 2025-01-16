@@ -256,82 +256,50 @@ class RaceRoomManager {
         try {
             this.isStarting = true;
             
-            // Verify auth state
-            if (!this.auth.currentUser) {
-                throw new Error('User must be authenticated');
-            }
-
-            // Get current room data with error handling
-            const snapshot = await roomRef.once('value');
-            if (!snapshot.exists()) {
-                throw new Error('Room no longer exists');
-            }
-
-            const roomData = snapshot.val();
-            
-            // Verify host status
-            if (roomData.hostId !== this.auth.currentUser.uid) {
-                throw new Error('Only the host can start the race');
-            }
-
-            // Create race session with explicit error handling
-            const raceSessionRef = this.database.ref('race_sessions').push();
-            
-            const raceSessionData = {
-                id: raceSessionRef.key,
-                originalRoomId: this.activeRoom,
-                status: 'initializing',
-                track: 'neon_city_1',
-                laps: 3,
-                players: roomData.players,
-                hostId: roomData.hostId,
-                startTime: firebase.database.ServerValue.TIMESTAMP,
-                finishTime: null
-            };
-
-            // Use set with error handling
-            await raceSessionRef.set(raceSessionData)
-                .catch(error => {
-                    console.error('Failed to create race session:', error);
-                    throw new Error('Failed to create race session');
-                });
-
-            // Update room status and add race session reference
+            // Update room status to starting
             await roomRef.update({
-                status: 'transitioning',
-                raceSessionId: raceSessionRef.key
+                status: 'starting',
+                acceptingInput: false,
+                canBeCancelled: true
             });
 
-            // Store race data for each player
-            Object.keys(roomData.players).forEach(playerId => {
-                const playerRef = this.database.ref(`users/${playerId}/activeRace`);
-                playerRef.set({
-                    raceSessionId: raceSessionRef.key,
-                    joinTime: firebase.database.ServerValue.TIMESTAMP
-                });
-            });
+            // Create and show countdown UI
+            const countdownOverlay = document.createElement('div');
+            countdownOverlay.className = 'countdown-overlay';
+            countdownOverlay.innerHTML = `
+                <div class="countdown-container">
+                    <div class="countdown-number">3</div>
+                    <button class="cancel-countdown-btn">Cancel</button>
+                </div>
+            `;
+            document.body.appendChild(countdownOverlay);
 
-            // Clean up the room after a short delay
-            setTimeout(async () => {
-                try {
-                    await roomRef.remove();
-                } catch (error) {
-                    console.error('Error removing room:', error);
-                }
-            }, 2000);
+            // Add cancel button listener
+            const cancelBtn = countdownOverlay.querySelector('.cancel-countdown-btn');
+            cancelBtn.addEventListener('click', () => this.cancelRaceStart());
 
-            // Store local race data
-            localStorage.setItem('raceData', JSON.stringify({
-                sessionId: raceSessionRef.key,
-                playerId: this.auth.currentUser.uid,
-                isHost: roomData.hostId === this.auth.currentUser.uid,
-                players: roomData.players,
-                track: 'neon_city_1',
-                laps: 3
-            }));
+            // Countdown animation
+            for (let i = 3; i > 0; i--) {
+                const numberEl = countdownOverlay.querySelector('.countdown-number');
+                numberEl.textContent = i;
+                numberEl.classList.add('countdown-pulse');
+                
+                await new Promise(resolve => setTimeout(resolve, 1000));
+                numberEl.classList.remove('countdown-pulse');
+            }
 
-            // Redirect to race.html (fixed URL)
-            window.location.href = '/public/race.html';
+            // Show GO!
+            const numberEl = countdownOverlay.querySelector('.countdown-number');
+            numberEl.textContent = 'GO!';
+            numberEl.classList.add('countdown-pulse');
+
+            // Remove countdown after a short delay
+            setTimeout(() => {
+                countdownOverlay.remove();
+            }, 1000);
+
+            // Continue with race initialization
+            await this.initializeRaceSession(roomRef);
 
         } catch (error) {
             this.isStarting = false;
@@ -413,6 +381,38 @@ class RaceRoomManager {
 
         } catch (error) {
             console.error('Error initializing race:', error);
+        }
+    }
+
+    async initializeRaceSession(roomRef) {
+        try {
+            const roomSnapshot = await roomRef.once('value');
+            const roomData = roomSnapshot.val();
+            
+            if (!roomData) {
+                throw new Error('Race room not found');
+            }
+
+            // Store race data in localStorage for the race page
+            const raceData = {
+                roomId: roomRef.key,
+                playerId: this.auth.currentUser.uid,
+                isHost: roomData.hostId === this.auth.currentUser.uid,
+                players: roomData.players,
+                track: roomData.trackId || 'neon_city_1', // Default track
+                laps: roomData.laps || 3
+            };
+
+            // Store data for race.html to access
+            localStorage.setItem('raceData', JSON.stringify(raceData));
+
+            // Redirect to race page
+            window.location.href = '/race.html';
+
+        } catch (error) {
+            console.error('Failed to initialize race session:', error);
+            await roomRef.update({ status: 'error' });
+            throw error;
         }
     }
 }

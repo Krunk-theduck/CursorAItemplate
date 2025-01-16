@@ -1,0 +1,89 @@
+<svg width="300" height="120" viewBox="0 0 300 120" xmlns="http://www.w3.org/2000/svg">
+    <!-- Base car shape -->
+    <g class="car-body" fill="var(--car-color, #00ffff)">
+        <!-- Main body - more angular for cyber design -->
+        <path d="M40,80 
+                 L60,65
+                 L90,65
+                 L120,60
+                 L160,50
+                 L200,50
+                 L240,60
+                 L270,75
+                 L260,80
+                 L40,80" 
+              fill-opacity="0.9"/>
+        
+        <!-- Hood - sharp angles -->
+        <path d="M60,65
+                 L90,65
+                 L120,60
+                 L110,63
+                 L80,63
+                 Z" 
+              fill-opacity="0.7"/>
+        
+        <!-- Roof - angular design -->
+        <path d="M120,60
+                 L160,45
+                 L200,45
+                 L240,60
+                 L200,55
+                 L160,50
+                 Z" 
+              fill="#111"/>
+        
+        <!-- Windows - geometric shapes -->
+        <path d="M130,58
+                 L160,48
+                 L190,48
+                 L220,58
+                 L190,55
+                 L160,52
+                 Z" 
+              fill="#1a1a1a"
+              class="window"/>
+    </g>
+
+    <!-- Cyber details -->
+    <g class="neon-accents" stroke="var(--car-color, #00ffff)" fill="none">
+        <!-- Multiple body lines for cyber effect -->
+        <path d="M70,70 L250,70" stroke-width="1" class="glow"/>
+        <path d="M80,73 L240,73" stroke-width="1" class="glow"/>
+        <path d="M90,76 L230,76" stroke-width="1" class="glow"/>
+        <!-- Angular front accents -->
+        <path d="M50,75 L70,65" stroke-width="1" class="glow"/>
+        <path d="M55,77 L75,67" stroke-width="1" class="glow"/>
+        <!-- Angular rear accents -->
+        <path d="M240,65 L260,75" stroke-width="1" class="glow"/>
+        <path d="M235,67 L255,77" stroke-width="1" class="glow"/>
+    </g>
+
+    <!-- High-tech Wheels -->
+    <g class="wheels">
+        <!-- Front wheel -->
+        <circle cx="90" cy="80" r="15" fill="#111"/>
+        <path d="M80,80 L100,80 M90,70 L90,90" 
+              stroke="#333" stroke-width="2"/>
+        <circle cx="90" cy="80" r="8" fill="#333"/>
+        <circle cx="90" cy="80" r="3" fill="#111"/>
+        
+        <!-- Rear wheel -->
+        <circle cx="220" cy="80" r="15" fill="#111"/>
+        <path d="M210,80 L230,80 M220,70 L220,90" 
+              stroke="#333" stroke-width="2"/>
+        <circle cx="220" cy="80" r="8" fill="#333"/>
+        <circle cx="220" cy="80" r="3" fill="#111"/>
+    </g>
+
+    <!-- Enhanced glow effects -->
+    <defs>
+        <filter id="cyber-glow">
+            <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+            <feMerge>
+                <feMergeNode in="coloredBlur"/>
+                <feMergeNode in="SourceGraphic"/>
+            </feMerge>
+        </filter>
+    </defs>
+</svg> 

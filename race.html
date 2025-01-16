@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Neon Racers - Race</title>
+    <link rel="stylesheet" href="src/styles/main.css">
+    <link rel="stylesheet" href="src/styles/race.css">
+</head>
+<body>
+    <div id="race-container">
+        <canvas id="race-canvas"></canvas>
+        <div id="race-ui">
+            <div id="position-display"></div>
+            <div id="lap-counter"></div>
+            <div id="speed-display"></div>
+        </div>
+    </div>
+
+    <!-- Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/9.x.x/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.x.x/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.x.x/firebase-auth.js"></script>
+
+    <!-- Game Scripts -->
+    <script src="src/config/firebase-config.js"></script>
+    <script src="src/racing/race-session-manager.js"></script>
+    <script src="src/racing/physics-manager.js"></script>
+    <script src="src/racing/race-ui-manager.js"></script>
+    <script src="src/racing/race-init.js"></script>
+</body>
+</html> 
