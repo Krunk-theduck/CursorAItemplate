@@ -1,7 +1,7 @@
 class CarRegistry {
     constructor() {
         this.carsData = null;
-        this.CARS_REPO_URL = 'https://raw.githubusercontent.com/Krunk-theduck/CursorAItemplate/refs/heads/main/REGISTRY/cars.json';
+        this.CARS_REPO_URL = 'https://raw.githubusercontent.com/Krunk-theduck/NeonRacers/refs/heads/main/REGISTRY/cars.json';
         this.loadedCars = new Map();
     }
 
